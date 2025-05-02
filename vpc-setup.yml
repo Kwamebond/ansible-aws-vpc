@@ -105,3 +105,20 @@
         tags:
           Name: vprofile-igw
       register: igw
+
+    - name: Set up public subnet route table
+      amazon.aws.ec2_vpc_route_table:
+        vpc_id: "{{ vpc.vpc.id }}"
+        region: "{{ region }}"
+        tags:
+          Name: vprofile-public-rt
+          Project: vprofile
+        subnets:
+          - "{{ public_subnet1.subnet.id }}"
+          - "{{ public_subnet2.subnet.id }}"
+          - "{{ public_subnet3.subnet.id }}"
+        routes:
+          - dest: 0.0.0.0/0
+            gateway_id: "{{ igw.gateway_id }}"
+      register: public_route_table
+
