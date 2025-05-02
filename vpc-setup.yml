@@ -63,7 +63,6 @@
         vpc_id: "{{ vpc.vpc.id }}"
         cidr: "{{ PrivSub1Cidr }}"
         az: "{{ zone1 }}"
-        map_public: true
         state: "{{state}}"
         region: "{{ region }}"
         tags:
@@ -76,7 +75,6 @@
         vpc_id: "{{ vpc.vpc.id }}"
         cidr: "{{ PrivSub2Cidr }}"
         az: "{{ zone2 }}"
-        map_public: true
         state: "{{state}}"
         region: "{{ region }}"
         tags:
@@ -89,7 +87,6 @@
         vpc_id: "{{ vpc.vpc.id }}"
         cidr: "{{ PrivSub3Cidr }}"
         az: "{{ zone3 }}"
-        map_public: true
         state: "{{state}}"
         region: "{{ region }}"
         tags:
@@ -121,4 +118,32 @@
           - dest: 0.0.0.0/0
             gateway_id: "{{ igw.gateway_id }}"
       register: public_route_table
+
+    - name: Create NAT Gateway in public subnet1
+      amazon.aws.ec2_vpc_nat_gateway:
+        subnet_id: "{{ public_subnet1.subnet.id }}"
+        region: "{{ region }}"
+        state: present
+        wait: true
+        if_exist_do_not_create: true
+        tags:
+          Name: vprofile-natgw
+      register: nat_gateway
+
+    - name: Set up private subnet route table
+      amazon.aws.ec2_vpc_route_table:
+        vpc_id: "{{ vpc.vpc.id }}"
+        region: "{{ region }}"
+        tags:
+          Name: vprofile-private-rt
+          Project: vprofile
+        subnets:
+          - "{{ private_subnet1.subnet.id }}"
+          - "{{ private_subnet2.subnet.id }}"
+          - "{{ private_subnet3.subnet.id }}"
+        routes:
+          - dest: 0.0.0.0/0
+            nat_gateway_id: "{{ nat_gateway.nat_gateway_id }}"
+      register: private_route_table
+
 
