@@ -25,7 +25,7 @@
         cidr: "{{ PubSub1Cidr }}"
         az: "{{ zone1 }}"
         map_public: true
-        state: present
+        state: "{{state}}"
         region: "{{ region }}"
         tags:
           Name: public-subnet1
@@ -51,7 +51,7 @@
         cidr: "{{ PubSub3Cidr }}"
         az: "{{ zone3 }}"
         map_public: true
-        state: present
+        state: "{{state}}"
         region: "{{ region }}"
         tags:
           Name: public-subnet3
@@ -64,7 +64,7 @@
         cidr: "{{ PrivSub1Cidr }}"
         az: "{{ zone1 }}"
         map_public: true
-        state: present
+        state: "{{state}}"
         region: "{{ region }}"
         tags:
           Name: private-subnet1
@@ -77,7 +77,7 @@
         cidr: "{{ PrivSub2Cidr }}"
         az: "{{ zone2 }}"
         map_public: true
-        state: present
+        state: "{{state}}"
         region: "{{ region }}"
         tags:
           Name: private-subnet2
@@ -90,9 +90,18 @@
         cidr: "{{ PrivSub3Cidr }}"
         az: "{{ zone3 }}"
         map_public: true
-        state: present
+        state: "{{state}}"
         region: "{{ region }}"
         tags:
           Name: private-subnet3
           Project: vprofile
       register: private_subnet3
+
+    - name: Create Internet Gateway
+      amazon.aws.ec2_vpc_igw:
+        vpc_id: "{{ vpc.vpc.id }}"
+        region: "{{ region }}"
+        state: "{{state}}"
+        tags:
+          Name: vprofile-igw
+      register: igw
