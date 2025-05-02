@@ -146,4 +146,17 @@
             nat_gateway_id: "{{ nat_gateway.nat_gateway_id }}"
       register: private_route_table
 
-
+    - debug:
+        var: "{{item}}"
+      loop:
+        - vpc.vpc.id
+        - public_subnet1.subnet.id
+        - public_subnet2.subnet.id
+        - public_subnet3.subnet.id
+        - private_subnet1.subnet.id
+        - private_subnet2.subnet.id
+        - private_subnet3.subnet.id
+        - igw.gateway_id
+        - public_route_table.route_table.id
+        - nat_gateway.nat_gateway_id
+        - private_route_table.rout_table.id
