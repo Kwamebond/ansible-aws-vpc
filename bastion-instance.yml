@@ -48,11 +48,7 @@
         instance_type: "{{ instance_type }}"
         image_id: "{{ bastion_ami }}"
         wait: true
-        exact_count: 1
-        count_tags:
-          Name: bastion-host
-          Role: jumpbox
-          Project: vprofile
+        count: 1
         network:
           subnet_id: "{{ pub_sub1_id }}"
           assign_public_ip: true
