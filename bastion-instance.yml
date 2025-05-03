@@ -15,7 +15,6 @@
         name: bastion-key
         state: "{{state}}"
         region: "{{ region }}"
-      no_log: true
       register: bastion_key
 
     - name: Save private key to PEM file
