@@ -2,3 +2,4 @@ bastion_ami: ami-0f88e80871fd81e91
 region: us-east-1
 MYIP:  73.148.42.156/32
 instance_type: t2.micro
+state: present
