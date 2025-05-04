@@ -117,7 +117,7 @@
         image_id: "{{memcache_ami}}"
         region: "{{region}}"
         wait: yes
-        wait_count: 300
+        wait_timeout: 300
         vpc_subnet_id: "{{priv_sub1_id}}"
         tags:
           Name: mc01
@@ -133,7 +133,7 @@
         image_id: "{{rmq_ami}}"
         region: "{{region}}"
         wait: yes
-        wait_count: 300
+        wait_timeout: 300
         vpc_subnet_id: "{{priv_sub1_id}}"
         tags:
           Name: rmq01
@@ -149,7 +149,7 @@
         image_id: "{{mysql_am}}"
         region: "{{region}}"
         wait: yes
-        wait_count: 300
+        wait_timeout: 300
         vpc_subnet_id: "{{priv_sub1_id}}"
         tags:
           Name: db01
