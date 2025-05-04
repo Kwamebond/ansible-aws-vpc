@@ -98,7 +98,8 @@
         key_name: vprokey
         instance_type: "{{instance_type}}"
         image_id: "{{tomcat_ami}}"
-        group_id: "{{ vprostack_SG.group_id }}"
+        security_groups:
+          - "{{ vprostack_SG.group_id }}"
         vpc_subnet_id: "{{priv_sub1_id}}"
         wait: true
         wait_timeout: 300
@@ -111,7 +112,8 @@
       amazon.aws.ec2_instance:
         name: mc01
         key_pair: vprokey
-        group_id: "{{ vprostack_SG.group_id }}"
+        security_groups:
+          - "{{ vprostack_SG.group_id }}"
         image_id: "{{memcache_ami}}"
         region: "{{region}}"
         wait: yes
@@ -126,7 +128,8 @@
       amazon.aws.ec2_instance:
         name: rmq01
         key_pair: vprokey
-        group_id: "{{ vprostack_SG.group_id }}"
+        security_groups:
+          - "{{ vprostack_SG.group_id }}"
         image_id: "{{rmq_ami}}"
         region: "{{region}}"
         wait: yes
@@ -141,7 +144,8 @@
       amazon.aws.ec2_instance:
         name: db01
         key_pair: vprokey
-        group_id: "{{ vprostack_SG.group_id }}"
+        security_groups:
+          - "{{ vprostack_SG.group_id }}"
         image_id: "{{mysql_am}}"
         region: "{{region}}"
         wait: yes
