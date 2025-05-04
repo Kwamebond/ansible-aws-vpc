@@ -48,15 +48,15 @@
         instance_type: "{{ instance_type }}"
         image_id: "{{ bastion_ami }}"
         wait: true
-        count: 1
-        network:
-          subnet_id: "{{ pub_sub1_id }}"
-          assign_public_ip: true
-          security_group_id: "{{ bastion_sg.group_id }}"
-        tags:
+        wait_timeout: 300
+        exact_count: 1
+        count_tag:
           Name: bastion-host
           Role: jumpbox
           Project: vprofile
+        subnet_id: "{{ pub_sub1_id }}"
+        assign_public_ip: true
+        security_group_id: "{{ bastion_sg.group_id }}"
       register: bastion_instance
 
     - name: Show Bastion Host Public IP
