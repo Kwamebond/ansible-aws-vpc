@@ -38,7 +38,7 @@
         tags:
           Name: vproELB-SG
           Project: vprofile
-      register: vproELB-SG
+      register: vproELB_SG
 
     - name: Create Vprofile stack security group
       amazon.aws.ec2_security_group:
@@ -50,7 +50,7 @@
           - proto: tcp
             from_port: 80
             to_port: 80
-            group_id: "{{vproELB-SG.group_id}}"
+            group_id: "{{vproELB_SG.group_id}}"
 
           - proto: tcp
             from_port: 22
@@ -59,4 +59,4 @@
         tags:
           Name: vprostack-SG
           Project: vprofile
-      register: vprostack-SG
+      register: vprostack_SG
