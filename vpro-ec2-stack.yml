@@ -149,7 +149,7 @@
         instance_type: "{{instance_type}}"
         security_groups:
           - "{{ vprostack_SG.group_id }}"
-        image_id: "{{mysql_am}}"
+        image_id: "{{mysql_ami}}"
         region: "{{region}}"
         wait: yes
         wait_timeout: 300
