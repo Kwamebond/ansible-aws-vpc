@@ -72,3 +72,86 @@
         rules:
           - proto: all
             group_id: "{{vprostack_SG.group_id}}"
+
+
+    - name: Creating Nginx web01
+      amazon.aws.ec2_instance:
+        name: web01
+        region: "{{ region }}"
+        key_name: vprokey
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ nginx_ami }}"
+        wait: true
+        wait_timeout: 300
+        vpc_subnet_id: "{{ priv_sub1_id }}"
+        security_groups:
+          - "{{ vprostack_SG.group_id }}"
+        tags:
+          Name: web01
+          Project: vprofile
+      register: web01
+
+    - name: Creating tomcat app01
+      amazon.aws.ec2_instance:
+        name: app01
+        region: "{{region}}"
+        key_name: vprokey
+        instance_type: "{{instance_type}}"
+        image_id: "{{tomcat_ami}}"
+        group_id: "{{ vprostack_SG.group_id }}"
+        vpc_subnet_id: "{{priv_sub1_id}}"
+        wait: true
+        wait_timeout: 300
+        tags:
+          Name: app01
+          Project: Vprofile
+      register: app01
+
+    - name: Creating Memcache mc01
+      amazon.aws.ec2_instance:
+        name: mc01
+        key_pair: vprokey
+        group_id: "{{ vprostack_SG.group_id }}"
+        image_id: "{{memcache_ami}}"
+        region: "{{region}}"
+        wait: yes
+        wait_count: 300
+        vpc_subnet_id: "{{priv_sub1_id}}"
+        tags:
+          Name: mc01
+          Project: Vprofile
+      register: mc01
+
+    - name: Creating RabbitMQ rmq01
+      amazon.aws.ec2_instance:
+        name: rmq01
+        key_pair: vprokey
+        group_id: "{{ vprostack_SG.group_id }}"
+        image_id: "{{rmq_ami}}"
+        region: "{{region}}"
+        wait: yes
+        wait_count: 300
+        vpc_subnet_id: "{{priv_sub1_id}}"
+        tags:
+          Name: rmq01
+          Project: Vprofile
+      register: rmq01
+
+    - name: Creating Mysql db01
+      amazon.aws.ec2_instance:
+        name: db01
+        key_pair: vprokey
+        group_id: "{{ vprostack_SG.group_id }}"
+        image_id: "{{mysql_am}}"
+        region: "{{region}}"
+        wait: yes
+        wait_count: 300
+        vpc_subnet_id: "{{priv_sub1_id}}"
+        tags:
+          Name: db01
+          Project: Vprofile
+      register: db01
+
+    - name: Show mysql output
+      debug:
+        var: "output for mysql: {{db01}}"
