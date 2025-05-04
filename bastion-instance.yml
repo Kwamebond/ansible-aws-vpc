@@ -41,7 +41,7 @@
       register: bastion_sg
 
     - name: Launch Bastion Host EC2 instance
-      community.aws.ec2:
+      ec2_instance:
         name: bastion-host
         region: "{{ region }}"
         key_name: bastion-key
