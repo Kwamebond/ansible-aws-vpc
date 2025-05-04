@@ -67,7 +67,6 @@
     - name: Insert/Update "bastion_sg" in vars/output_vars
       ansible.builtin.blockinfile:
         path: vars/output_vars
-        backup: yes
         block: |
           bastion_sg_id: {{bastion_sg.group_id}}
 
