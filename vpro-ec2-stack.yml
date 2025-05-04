@@ -6,3 +6,20 @@
   tasks:
     - name: Import VPC setup Variable
       include_vars: vars/output_vars
+
+    - name: Import Vprofile setup variable
+      include_vars: vars/vprostack_setup
+
+    - name: Create a new EC2 key pair, returns generated private key
+      amazon.aws.ec2_key:
+        name: vprokey
+        state: "{{state}}"
+        region: "{{ region }}"
+      register: vprokey
+
+    - name: Save private key to PEM file
+      ansible.builtin.copy:
+        content: "{{ vprokey.key.private_key }}"
+        dest: "./loginkey.pem"
+        mode: '0600'
+      when: vprokey.changed
