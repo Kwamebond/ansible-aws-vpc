@@ -41,22 +41,25 @@
       register: bastion_sg
 
     - name: Launch Bastion Host EC2 instance
-      amazon.aws.ec2_instance:
+      ec2:
         name: bastion-host
         region: "{{ region }}"
         key_name: bastion-key
         instance_type: "{{ instance_type }}"
-        image_id: "{{ bastion_ami }}"
+        image: "{{ bastion_ami }}"
         wait: true
         wait_timeout: 300
+        instance_tags:
+          Name: bastion-host
+          Role: jumpbox
+          Project: vprofile
         exact_count: 1
         count_tag:
           Name: bastion-host
           Role: jumpbox
           Project: vprofile
-        subnet_id: "{{ pub_sub1_id }}"
-        assign_public_ip: true
-        security_group_id: "{{ bastion_sg.group_id }}"
+        vpc_subnet_id: "{{ pub_sub1_id }}"
+        group_id: "{{ bastion_sg.group_id }}"
       register: bastion_instance
 
     - name: Show Bastion Host Public IP
