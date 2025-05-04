@@ -112,6 +112,7 @@
       amazon.aws.ec2_instance:
         name: mc01
         key_name: vprokey
+        instance_type: "{{instance_type}}"
         security_groups:
           - "{{ vprostack_SG.group_id }}"
         image_id: "{{memcache_ami}}"
@@ -128,6 +129,7 @@
       amazon.aws.ec2_instance:
         name: rmq01
         key_name: vprokey
+        instance_type: "{{instance_type}}"
         security_groups:
           - "{{ vprostack_SG.group_id }}"
         image_id: "{{rmq_ami}}"
@@ -144,6 +146,7 @@
       amazon.aws.ec2_instance:
         name: db01
         key_name: vprokey
+        instance_type: "{{instance_type}}"
         security_groups:
           - "{{ vprostack_SG.group_id }}"
         image_id: "{{mysql_am}}"
