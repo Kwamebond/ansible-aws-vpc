@@ -59,8 +59,9 @@
           Role: jumpbox
           Project: vprofile
         vpc_subnet_id: "{{ pub_sub1_id }}"
-        group_id: "{{ bastion_sg.group_id }}"
+        group: "{{ bastion_sg.group_id }}"
       register: bastion_instance
+
 
     - name: Show Bastion Host Public IP
       debug:
