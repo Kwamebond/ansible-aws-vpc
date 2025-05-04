@@ -46,6 +46,7 @@
         description: Allow port 80 from everywhere and all port within sg
         region: "{{ region }}"
         vpc_id: "{{ vpc_id }}"
+        purge_rules: no
         rules:
           - proto: tcp
             from_port: 80
@@ -60,3 +61,14 @@
           Name: vprostack-SG
           Project: vprofile
       register: vprostack_SG
+
+    - name: Update Vprofile stack security group with its own id
+      amazon.aws.ec2_security_group:
+        name: vprostack-SG
+        description: Allow port 80 from everywhere and all port within sg
+        region: "{{ region }}"
+        vpc_id: "{{ vpc_id }}"
+        purge_rules: no
+        rules:
+          - proto: all
+            group_id: "{{vprostack_SG.group_id}}"
