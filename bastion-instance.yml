@@ -41,7 +41,7 @@
       register: bastion_sg
 
     - name: Launch Bastion Host EC2 instance
-      ec2_instance:
+      amazon.aws.ec2_instance:
         name: bastion-host
         region: "{{ region }}"
         key_name: bastion-key
@@ -49,19 +49,14 @@
         image_id: "{{ bastion_ami }}"
         wait: true
         wait_timeout: 300
-        instance_tags:
-          Name: bastion-host
-          Role: jumpbox
-          Project: vprofile
-        exact_count: 1
-        count_tag:
-          Name: bastion-host
-          Role: jumpbox
-          Project: vprofile
         vpc_subnet_id: "{{ pub_sub1_id }}"
-        group: "{{ bastion_sg.group_id }}"
+        security_groups:
+          - "{{ bastion_sg.group_id }}"
+        tags:
+          Name: bastion-host
+          Role: jumpbox
+          Project: vprofile
       register: bastion_instance
-
 
 
     - name: Show Bastion Host Public IP
