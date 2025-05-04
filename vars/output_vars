@@ -13,5 +13,4 @@ priv_rt_id: rtb-031aab0afd7c0c642
 region: us-east-1
 state: present
 
-
 bastion_sg_id:
