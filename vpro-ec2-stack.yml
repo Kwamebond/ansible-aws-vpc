@@ -111,7 +111,7 @@
     - name: Creating Memcache mc01
       amazon.aws.ec2_instance:
         name: mc01
-        key_pair: vprokey
+        key_name: vprokey
         security_groups:
           - "{{ vprostack_SG.group_id }}"
         image_id: "{{memcache_ami}}"
@@ -127,7 +127,7 @@
     - name: Creating RabbitMQ rmq01
       amazon.aws.ec2_instance:
         name: rmq01
-        key_pair: vprokey
+        key_name: vprokey
         security_groups:
           - "{{ vprostack_SG.group_id }}"
         image_id: "{{rmq_ami}}"
@@ -143,7 +143,7 @@
     - name: Creating Mysql db01
       amazon.aws.ec2_instance:
         name: db01
-        key_pair: vprokey
+        key_name: vprokey
         security_groups:
           - "{{ vprostack_SG.group_id }}"
         image_id: "{{mysql_am}}"
