@@ -41,7 +41,7 @@
       register: bastion_sg
 
     - name: Launch Bastion Host EC2 instance
-      ec2:
+      community.aws.ec2:
         name: bastion-host
         region: "{{ region }}"
         key_name: bastion-key
@@ -61,6 +61,7 @@
         vpc_subnet_id: "{{ pub_sub1_id }}"
         group: "{{ bastion_sg.group_id }}"
       register: bastion_instance
+
 
 
     - name: Show Bastion Host Public IP
