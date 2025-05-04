@@ -19,3 +19,8 @@ zone1: us-east-1a
 zone2: us-east-1b
 zone3: us-east-1c
 state: present
+
+# Bastion_vars
+bastion_ami: ami-0f88e80871fd81e91
+MYIP:  73.148.42.156/32
+instance_type: t2.micro
