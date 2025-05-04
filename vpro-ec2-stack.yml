@@ -161,4 +161,4 @@
 
     - name: Show mysql output
       debug:
-        var: "output for mysql: {{db01}}"
+        var: db01
