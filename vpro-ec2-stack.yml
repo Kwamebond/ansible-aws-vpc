@@ -200,7 +200,7 @@
       register: alb
 
     - name: Attach HTTP listener to ALB for Nginx
-      amazon.aws.elb_application_lb_listener:
+      community.aws.elb_application_lb_listener:
         state: present
         load_balancer_arn: "{{ alb.load_balancer_arn }}"
         port: 80
@@ -209,3 +209,4 @@
           - type: forward
             target_group_arn: "{{ nginx_target_group.target_group_arn }}"
         region: "{{ region }}"
+
