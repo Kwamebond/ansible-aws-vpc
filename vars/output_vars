@@ -7,12 +7,8 @@ priv_sub2_id: subnet-0324ed8c457a8d7fd
 priv_sub3_id: subnet-0e4e213812720f6dc
 igw_id: igw-0d64711d34dc4c1d0
 pub_rt_id: rtb-0a7d089c7ffafc118
-nat_gw_id: nat-0c3cf77e785d6f1e4
+nat_gw_id: nat-0a90b96febc587115
 priv_rt_id: rtb-031aab0afd7c0c642
-
-region: us-east-1
-state: present
-
 # BEGIN ANSIBLE MANAGED BLOCK
-bastion_sg_id: sg-0810b8eae831b4a17
+bastion_sg_id: sg-04487a88862d42ada
 # END ANSIBLE MANAGED BLOCK
