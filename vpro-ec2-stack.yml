@@ -178,8 +178,8 @@
         health_check_path: /
         successful_response_codes: "200"
         targets:
-          - id: "{{ web01.instances[0].instance_id }}"
-            port: 80
+          - Id: "{{ web01.instances[0].instance_id }}"
+            Port: 80
         state: present
         wait: true
         region: "{{ region }}"
