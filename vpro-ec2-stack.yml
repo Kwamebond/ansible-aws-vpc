@@ -168,3 +168,51 @@
         var: web01.instances[0].instance_id
 
 
+    - name: Create Application Load Balancer
+      amazon.aws.elb_application_lb:
+        name: vpro-alb
+        state: present
+        region: "{{ region }}"
+        subnets:
+          - "{{ pub_sub1_id }}"
+          - "{{ pub_sub2_id }}"
+          - "{{ pub_sub3_id }}"
+        security_groups:
+          - "{{vproELB_SG.group_id}}"
+        scheme: internet-facing
+        ip_address_type: ipv4
+        tags:
+          Name: vpro-alb
+          Project: vprofile
+      register: alb
+
+
+
+    - name: Create target group for Nginx
+      community.aws.elb_target_group:
+        name: vpro-nginx-tg
+        protocol: HTTP
+        port: 80
+        vpc_id: "{{ vpc_id }}"
+        health_check_protocol: HTTP
+        health_check_path: /
+        successful_response_codes: "200"
+        targets:
+          - id: "{{ web01.instances[0].instance_id }}"
+            port: 80
+        state: present
+        wait: true
+        region: "{{ region }}"
+      register: nginx_target_group
+
+    - name: Attach HTTP listener to ALB for Nginx
+      amazon.aws.elb_application_lb_listener:
+        state: present
+        load_balancer_arn: "{{ alb.load_balancer_arn }}"
+        port: 80
+        protocol: HTTP
+        default_actions:
+          - type: forward
+            target_group_arn: "{{ nginx_target_group.target_group_arn }}"
+        region: "{{ region }}"
+
