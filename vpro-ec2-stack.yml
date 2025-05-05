@@ -159,6 +159,12 @@
           Project: Vprofile
       register: db01
 
-    - name: Show mysql output
+    - name: Show MySQL (db01) instance ID
       debug:
-        var: db01
+        var: db01.instances[0].instance_id
+
+    - name: Show Nginx (web01) instance ID
+      debug:
+        var: web01.instances[0].instance_id
+
+
