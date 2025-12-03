@@ -18,6 +18,8 @@ Tags & variable-driven configuration
 All resources are created using Ansible’s amazon.aws collection.
 
 # PROJECT STRUCTURE
+
+```
 ansible-aws-vpc/
 │
 ├── vpc-setup.yml              # Main playbook to create VPC + subnets + networking
@@ -30,6 +32,7 @@ ansible-aws-vpc/
 │
 ├── .gitignore
 └── README.md
+```
 
 # What This Automation Does
 1. Creates a custom AWS VPC
